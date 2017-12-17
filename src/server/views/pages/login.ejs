@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Snake game</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <div class="mainLayout">
+            <div class="mainLayout_gameList">
+                <table>
+                    <% statistics.forEach((statistic) => { %>
+                    <tr>
+                        <td>game:<%= statistic.length %>/3</td>
+                        <td>--//--</td>
+                    </tr>
+                    <% }) %>
+                </table>
+            </div>
+
+            <div class="mainLayout_formWrapper">
+                <form class="loginForm" action="/login" method="post">
+                    <div class="loginFormInput">
+                        <label class="loginFormInput__label" for="name">
+                            <i class="loginFormInput__icon"></i>
+                        </label>
+                        <input
+                            class="loginFormInput__input <% if (error) { %>loginFormInput__input_error<% } %>"
+                            id="name"
+                            name="name"
+                            type="text"
+                            placeholder="Your snake name"
+                        >
+                        <% if (error) { %> <div class="loginFormInput__error"><%= error %></div> <% } %>
+                    </div>
+
+                    <button class="loginFormButton" type="submit">Play now!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Snake game</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <div class="mainLayout">
+            <div class="mainLayout_gameList">
+                <div>Current games</div>
+                <table>
+                    <tr>
+                        <td>name</td>
+                        <td>players</td>
+                        <td></td>
+                    </tr>
+                    <% statistics.forEach((item) => { %>
+                    <tr>
+                        <td><%= item.roomName %></td>
+                        <td><%= item.gameStatistic.length %>/3</td>
+                        <td><% if (item.href === '#') { %>
+                            --//--
+                            <% } else { %>
+                            <a href="<%= item.href %>">join game</a>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </table>
+            </div>
+            <div class="mainLayout_formWrapper">
+                <form class="loginForm" action="/create" method="post">
+                    <input type="hidden" name="snakeName" value="<%= name %>">
+                    <div class="loginFormInput">
+                        <label class="loginFormInput__label" for="roomName">
+                            <i class="loginFormInput__controllerIcon"></i>
+                        </label>
+                        <input
+                                class="loginFormInput__input <% if (error) { %>loginFormInput__input_error<% } %>"
+                                id="room-name"
+                                name="roomName"
+                                type="text"
+                                placeholder="New game name"
+                        >
+                        <% if (error) { %> <div class="loginFormInput__error"><%= error %></div> <% } %>
+                    </div>
+                    <button class="loginFormButton" type="submit">Create new game</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

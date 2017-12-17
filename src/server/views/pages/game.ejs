@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Snake game</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <div class="gameWrapper">
+            <div class="gameContainer">
+                <div id="game-container"></div>
+                <div id="snake-game-over" class="gameOver"></div>
+            </div>
+            <div class="gameStat">game board
+                <div id="stat-current-snake" class="gameStatCurrentSnake"></div>
+                <div id="stat-rival-snakes"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/socket.js"></script>
+<script src="/app.js"></script>
+<script src="/gameProgress.js"></script>
+<script src="/gameOver.js"></script>
+</body>
+</html>
