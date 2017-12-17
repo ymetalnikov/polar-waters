@@ -1,5 +1,5 @@
 const cookie = require("cookie");
-const { emitter, constants: { CLOSE_ROOM } } = require('../services/Emitter');
+const { emitter, constants: { CLOSE_ROOM } } = require('../models/Emitter');
 
 const LISTEN_EVENTS = {
     GAME_START: 'GAME_START',
@@ -16,33 +16,41 @@ const EMIT_EVENTS = {
 };
 
 const socketHandler = function (io, socket, room) {
+
+    if (!room) {
+        console.warn('room not found');
+        return
+    }
+
     const nameSpace = `/${room.getRoomId()}`;
     const snakePool = room.getSnakePool();
-    const foodService = room.getFood();
+    const food = room.getFood();
     const snakeCookie = socket.handshake.headers.cookie;
     const cookieSnakeName = cookie.parse(snakeCookie).snakeName;
-    const snake = snakePool.findSnakeByCookie(cookieSnakeName);
+    const snake = snakePool.findSnakeByCookies(cookieSnakeName);
 
     if (!snake) {
+        console.warn('snake not found');
         return
     }
 
     const handlerGameStart = () => {
-        socket.emit(EMIT_EVENTS.SET_FOOD, foodService.getFood());
+        food.reset();
+        socket.emit(EMIT_EVENTS.SET_FOOD, food.get());
         if (!snake.isGaming) {
             snakePool.addToGame(snake);
             socket.emit(EMIT_EVENTS.JOIN_TO_GAME, snake);
         }
     };
     const handleFoodEaten = () => {
-        foodService.reset();
+        food.reset();
     };
     const handleSnakeMotion = (data) => {
         const rivalSnakes = snakePool.getRivals(snake);
 
         snake.position = data;
         socket.emit(EMIT_EVENTS.GET_RIVAL_SNAKES, rivalSnakes);
-        socket.emit(EMIT_EVENTS.SET_FOOD, foodService.getFood());
+        socket.emit(EMIT_EVENTS.SET_FOOD, food.get());
     };
     const handleDisconnect = () => {
         snakePool.gameOverSnakeByCookies(cookieSnakeName);

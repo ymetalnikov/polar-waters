@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <title>Snake game</title>
-    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/assets/app.css">
+    <link rel="stylesheet" href="/assets/game.css">
 </head>
 <body>
 <div class="wrapper">
@@ -12,7 +13,8 @@
                 <div id="game-container"></div>
                 <div id="snake-game-over" class="gameOver"></div>
             </div>
-            <div class="gameStat">game board
+            <div class="gameStat">
+                <div>Snakes</div>
                 <div id="stat-current-snake" class="gameStatCurrentSnake"></div>
                 <div id="stat-rival-snakes"></div>
             </div>
@@ -20,9 +22,6 @@
     </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
-<script src="/socket.js"></script>
-<script src="/app.js"></script>
-<script src="/gameProgress.js"></script>
-<script src="/gameOver.js"></script>
+<script src="/assets/bundle.js"></script>
 </body>
 </html>

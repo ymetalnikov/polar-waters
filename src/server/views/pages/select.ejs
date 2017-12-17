@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <title>Snake game</title>
-    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/assets/app.css">
 </head>
 <body>
 <div class="wrapper">
     <div class="content">
         <div class="mainLayout">
             <div class="mainLayout_gameList">
-                <div>Current games</div>
-                <table>
+                <div class="gameListLabel">Current games</div>
+                <table class="gameListTable">
                     <tr>
                         <td>name</td>
                         <td>players</td>
@@ -32,7 +32,6 @@
             </div>
             <div class="mainLayout_formWrapper">
                 <form class="loginForm" action="/create" method="post">
-                    <input type="hidden" name="snakeName" value="<%= name %>">
                     <div class="loginFormInput">
                         <label class="loginFormInput__label" for="roomName">
                             <i class="loginFormInput__controllerIcon"></i>

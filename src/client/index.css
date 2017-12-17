@@ -1,0 +1,77 @@
+
+.gameWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.gameContainer {
+    display: inline-block;
+    margin: 20px;
+    position: relative;
+    height: 600px;
+    width: 600px;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2), 0 1px 5px rgba(0,0,0,0.2), 0 0 0 12px rgba(255,255,255,0.4);
+    border-radius: 4px;
+}
+
+.gameOver {
+    display: none;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    color: white;
+    font: bold 24px/45px Helvetica, Sans-Serif;
+    text-align: center;
+}
+
+.gameOver_show {
+    display: block;
+}
+
+.gameStat {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+    position: relative;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2), 0 1px 5px rgba(0,0,0,0.2), 0 0 0 12px rgba(255,255,255,0.4);
+    border-radius: 4px;
+}
+
+.gameStatCurrentSnake {
+    display: flex;
+    align-items: baseline;
+    font-weight: 800;
+    padding: 5px;
+}
+.gameStatCurrentSnake__color {
+    border-radius: 50px;
+}
+
+.gameStatRivalSnake {
+    display: flex;
+    align-items: baseline;
+    padding: 5px;
+}
+.gameStatRivalSnake__color {
+    border-radius: 50px;
+}
+
+.gameOverTable{
+    width: 100%;
+    padding: 20px 30%;
+}
+
+.gameOverTableCell__color {
+    height: 20px;
+    width: 20px;
+}
+
+#snake {
+    /*width: 600px;*/
+    /*height: 600px;*/
+    border: 3px solid black;
+    margin: 40px;
+}

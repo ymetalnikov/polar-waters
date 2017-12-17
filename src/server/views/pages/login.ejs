@@ -2,23 +2,12 @@
 <html lang="en">
 <head>
     <title>Snake game</title>
-    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/assets/app.css">
 </head>
 <body>
 <div class="wrapper">
     <div class="content">
         <div class="mainLayout">
-            <div class="mainLayout_gameList">
-                <table>
-                    <% statistics.forEach((statistic) => { %>
-                    <tr>
-                        <td>game:<%= statistic.length %>/3</td>
-                        <td>--//--</td>
-                    </tr>
-                    <% }) %>
-                </table>
-            </div>
-
             <div class="mainLayout_formWrapper">
                 <form class="loginForm" action="/login" method="post">
                     <div class="loginFormInput">

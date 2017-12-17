@@ -1,39 +1,62 @@
-# node-js-getting-started
-
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
-
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
-
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
+Описание игры змейка
+-------------
+1. Установка зависимостей
+```
+npm install
+```
+2. Запуск приложения
+```
+npm run start:client
+npm run start:server
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+### Описание приложения
+###### Старт приложения(/)
+   Страница форма ввода имени пользователя. Необходимо ввести имя "змейки" валидация на заполенное поле. При попытках попасть на другие страницы без введеного имени срабатывает переадресация на главную.
+   Сабмит формы ведет на post роут(/login). Если форма валидна то клиенту проставляется кука snakeName. Она нужна для аутентификации с именем змейки. При успешном создании происходит редирект на страницу(/select)
 
-## Deploying to Heroku
+###### Страница со списком текущих игр(/slect)
+В верхней части страницы находится список текущих игр. К ним можно присоединиться, если состав игры не превышает 3х учасников. В нижней части страницы есть возможность создать новую игру. Для этого необхдимо ввести имя игры, поле проверяется на заполненность.
 
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
+Нажате на "Join the game" ведет к переходу на post роут (/join) тут клиенту проставляется куки с игрой gameName. 
+Отправка формы "Create new game" отправляет форму на post роут (/create). При успешной отправке создается новая игра и пользователю проставляется кука новой игры.
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+###### Страница игры(/game)
+Игра осуществляется на поле размером 60x60. Игрок стартует в произвольном месте игрового пространства. На поле появляется "Еда" в единственном экземпляре, после употребления которой, с сервера приходит новая, с произвольными координатами расположения. Еда занимает пространство 2x2. Также мы видим движение соперников. 
+   Условия сброса очков/поражения
+   * Змея врезается в собственный хвост
+   * Змея врезается в стену
+   * Змея врезается в хвост противника
 
-## Documentation
+  Если змея врезалась ... и на поле ест еще игроки предлагается начать заново на том же поле. Если врезалась ... и на поле больше нет активных игроков то возможен переход только на список игр (/slect).
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+#### Описание сущностей
 
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+SnakeStore - Хранилище сущностей Snake. По текущей куке можно аутентифицировать змею
+
+Snake - Сущность змеи содержит
+ - cookies (версия куки клиета)
+ - snakeName
+ - time (время сессии)
+
+RoomStore - Хранилище сущностей Room.
+
+Room - сущность сопостовимая с игрой. Комната это алиас для game. То что создается при нажатии на create new game. В каждой комнате есть ссылка на SnakePool
+
+SnakePool - Хранилище змей в игре. Хранит в себе декорированные Snake и Food. Добавляются поля важные для игры(цвет, позиция, ....).
+
+Food - еда привязана к SnakePool
+ - coordinate
+ - icon
+
+Описание приложения клиент
+ При попадании на страницу игры, срабатывает таймер с помощью которого осуществляется движение змеи пользователя. Результаты движения отправлются на сервер по средствам websoket через событие "SET_SNAKE_MOTION".
+ Отслеживание прогресса игры и синхронизация осуществляется с помощью прослушивания событий сервера "getRivalSnakes" и "setFood".
+ Окончани игры происходит по условию клиента см Условия сброса очков/поражения, в этом случае оповещаем сервер событием "GAME_OVER", либо при получении серверного события "gameOver". Если змея пользователя съедает "Еду", то отправляется событие на сервер "SET_FOOD_EATEN".
+
+###### Ограничения и ошибки
+При игре в 2х рвзных экземплярах одного браузера. Игра будет вести себя некорректно. Не настроена синхронизация движения текущей змеи клиента.
+
+Есть баг когда еда не появляется на поле.
+
+Нет сервиса который выдает случайное положение старта координат не пересекающееся ни с одной из занятых ячеек и учитывает положение игры в целом.

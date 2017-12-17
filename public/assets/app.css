@@ -1,0 +1,145 @@
+div, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #DCDDDF url(/bg.jpg);
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+}
+
+table td {
+    padding: 10px;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+}
+
+.formWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainLayout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    margin: auto;
+}
+
+.mainLayout_gameList {
+    margin-bottom: 30px;
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    background: linear-gradient(#eeefef, #ffffff 10%)
+}
+
+.gameListLabel {
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 2;
+}
+
+.gameListTable {
+    width: 100%;
+    border-spacing: 0;
+}
+
+.gameListTable td {
+    vertical-align: top;
+    border-top: 1px solid rgba(138, 140, 141, 0.45);
+}
+
+.loginForm {
+    margin: auto;
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    background: linear-gradient(#eeefef, #ffffff 10%);
+}
+
+.loginFormInput {
+    position: relative;
+    margin: 10px 0;
+}
+.loginFormInput__input {
+    font-size: 13px;
+    font-weight: 400;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    width: 100%;
+    padding: 10px 18px 10px 45px;
+    margin: 0;
+    border: none;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1), inset 0 3px 2px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    background: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.loginFormInput__input_error {
+    border: 1px solid #B01302;
+}
+
+.loginFormInput__icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 36px;
+    width: 36px;
+    background: url(/snake-icon.png) no-repeat 0 0;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
+    background-position: center;
+
+}
+
+.loginFormInput__controllerIcon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 36px;
+    width: 36px;
+    background: url(/game-controller.png) no-repeat 0 0;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
+    background-position: center;
+}
+
+.loginFormInput__error {
+    color: #B01302;
+    text-align: center;
+    padding-top: 2px;
+    font-size: 13px;
+}
+
+.loginFormButton {
+    border: 1px solid #3f266f;
+    background: #532F8C;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: inset 0 1px rgba(255,255,255,0.3), inset 0 20px 40px rgba(255,255,255,0.15);
+}
+
+.loginFormButton:hover {
+    box-shadow: inset 0 1px rgba(255,255,255,0.13), inset 0 20px 40px rgba(255,255,255,0.25);
+}

@@ -1,5 +1,5 @@
-const { roomMap } = require('../services/Room');
-const { emitter, constants: { OPEN_ROOM, CLOSE_ROOM } } = require('../services/Emitter');
+const { roomStore } = require('../models/Room');
+const { emitter, constants: { OPEN_ROOM, CLOSE_ROOM } } = require('../models/Emitter');
 const socketHandler = require('./socketHandler');
 const socket = (io) => {
     emitter.on(OPEN_ROOM, (roomId) => {
@@ -7,14 +7,14 @@ const socket = (io) => {
         const nsp = io.of(nameSpace);
 
         nsp.on('connection', function (socket) {
-            const room = roomMap[roomId];
+            const room = roomStore.getRoomByCookies(roomId);
 
             socketHandler(io, socket, room);
         });
     });
 
     emitter.on(CLOSE_ROOM, function (roomId) {
-        delete roomMap[roomId];
+        roomStore.deleteRoomByCookies(roomId);
     })
 };
 

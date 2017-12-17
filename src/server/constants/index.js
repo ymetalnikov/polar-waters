@@ -1,9 +1,7 @@
-
-const MAX_COOKIES_AGE = 60;
-const MINUTE = 60000;
-
+const ONE_MINUTE = 60000;
+const ONE_HOUR = 60 * ONE_MINUTE;
 
 module.exports = {
-    MAX_COOKIES_AGE,
-    MINUTE
+    ONE_HOUR,
+    ONE_MINUTE,
 };

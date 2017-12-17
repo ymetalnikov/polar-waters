@@ -6,23 +6,31 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const { checkAuth } = require('./middleware');
+const { roomStore } = require('./models/Room');
+const { snakeStore } = require('./models/Snake');
+const { ONE_MINUTE } = require('./constants');
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(validator());
+app.use(checkAuth);
 
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
-app.use(function (request, response, next) {
-    request.io = io;
-    next();
-});
-
-const controller = require('./controller');
+const controller = require('./controllers');
 const socketHandler = require('./io');
+
+// чистим бездействующих змеек
+const clearObsoleteSnakes = () => {
+    roomStore.updateTimeAllInRooms();
+    snakeStore.clearObsolete();
+};
+
+setInterval(clearObsoleteSnakes, ONE_MINUTE * 10);
 
 app.use('/', controller);
 socketHandler(io);

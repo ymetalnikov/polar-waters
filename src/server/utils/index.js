@@ -1,4 +1,4 @@
-const { TILE_COUNT } = require('../../share/constants');
+const config = require('../../share/config');
 
 function getRandom() {
     const randomNumber = Math.random().toString();
@@ -10,7 +10,7 @@ function getRandom() {
  * @returns {number}
  */
 function randomTileOnField(reduceCount = 0) {
-    return Math.floor(Math.random() * (TILE_COUNT - reduceCount));
+    return Math.floor(Math.random() * (config.client.tileCount - reduceCount));
 }
 
 /**
