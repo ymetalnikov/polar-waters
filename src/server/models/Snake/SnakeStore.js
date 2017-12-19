@@ -13,7 +13,7 @@ class SnakeStore {
         for (let key in this._snakeMap) {
             if (
                 this._snakeMap.hasOwnProperty(key)
-                && this._snakeMap[key].time < currentTime
+                && this._snakeMap[key].expiredTime < currentTime
             ) {
                 delete this._snakeMap[key];
             }

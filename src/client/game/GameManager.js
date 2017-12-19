@@ -16,7 +16,7 @@ const createCanvas = (wrapperId, size) => {
     return { canvas, ctx };
 };
 const clearCanvas = (ctx, canvas) => {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 const createFoodImg = (gameContainerId, position, icon, gridSize) => {
@@ -86,7 +86,7 @@ class Game {
             }
 
             if (velocity.y !== 0 && y !== 0) {
-                newY = 0
+                newY = 0;
             }
 
             if (
@@ -113,7 +113,7 @@ class Game {
 
     setFood(newPosition, icon) {
         if (!newPosition || !icon) {
-            return
+            return;
         }
 
         const isFood = !!this.food;
@@ -160,11 +160,11 @@ class Game {
             ) {
                 this.snake.tail += 1;
                 this.food.isEaten = true;
-                this.dispatcher('SET_FOOD_EATEN', this.snake.trail);
+                this.dispatcher.trigger('SET_FOOD_EATEN', this.snake.trail);
             }
         }
 
-        this.dispatcher('SET_SNAKE_MOTION', this.snake.trail);
+        this.dispatcher.trigger('SET_SNAKE_MOTION', this.snake.trail);
     }
 
     checkGameOver() {
@@ -203,11 +203,11 @@ class Game {
     drawFood() {
         if (!this.food || this.food.isEaten) {
             clearFoodImg(this.config.gameContainerId);
-            return
+            return;
         }
 
         if (!this.isNewFood) {
-            return
+            return;
         } else {
             this.isNewFood = false;
         }
@@ -220,7 +220,7 @@ class Game {
 
     drawSnake() {
         if (!this.snake) {
-            return
+            return;
         }
 
         const { gridSize, snakeWaist } = this.config;
@@ -262,7 +262,7 @@ class Game {
         if (!this.isGameOver) {
             this.snake.setVelocity(0, 0);
             this.isGameOver = true;
-            this.dispatcher('GAME_OVER', { trail: this.snake.trail });
+            this.dispatcher.trigger('GAME_OVER', { trail: this.snake.trail });
         }
     }
 }

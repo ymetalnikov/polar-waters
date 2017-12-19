@@ -10,7 +10,8 @@
     "build": "NODE_ENV=production webpack",
     "start:client": "NODE_ENV=develop webpack",
     "start:server": "node index.js",
-    "test": "node test.js"
+    "lint": "./node_modules/.bin/eslint ./src/** --fix",
+    "test": "node ./node_modules/mocha/bin/mocha \"src/**/*.test.js\""
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -27,10 +28,12 @@
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.1.2",
     "css-loader": "^0.28.7",
+    "eslint": "^4.13.1",
     "extract-text-webpack-plugin": "^2.1.2",
+    "mocha": "^4.0.1",
     "style-loader": "^0.18.2",
-    "tape": "^4.7.0",
     "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "^3.10.0"
   },

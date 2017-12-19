@@ -1,3 +1,6 @@
+
+import { Dispatcher } from '../dispatcher';
+
 export default function gameProgress() {
 
     let rivalsMask = '';
@@ -17,15 +20,13 @@ export default function gameProgress() {
         return mask;
     }
 
-    document.addEventListener('SET_FOOD_EATEN', function (e) {
-        const payload = e.detail.payload;
+    Dispatcher.on('SET_FOOD_EATEN', function (payload) {
         const statCurrentSnake = (document.getElementsByClassName('gameStatCurrentSnake__length'))[0];
 
         statCurrentSnake.innerHTML = ':&nbsp;' + (payload.length + 1);
     });
 
-    document.addEventListener('SET_SNAKE', function (e) {
-        const payload = e.detail.payload;
+    Dispatcher.on('SET_SNAKE', function (payload) {
         const divName = document.createElement('div');
         const spanLength = document.createElement('span');
         const divColor = document.createElement('div');
@@ -46,9 +47,7 @@ export default function gameProgress() {
         content.appendChild(divName);
     });
 
-    document.addEventListener('GET_RIVAL_SNAKES', function (e) {
-        const payload = e.detail.payload;
-
+    Dispatcher.on('GET_RIVAL_SNAKES', function (payload) {
         const newRivalsMask = rivalEqual(payload);
 
         if (rivalsMask !== newRivalsMask) {
@@ -75,5 +74,5 @@ export default function gameProgress() {
                 content.appendChild(wrapper);
             });
         }
-    })
-};
+    });
+}

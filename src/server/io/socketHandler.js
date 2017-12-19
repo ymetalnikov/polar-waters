@@ -1,5 +1,6 @@
-const cookie = require("cookie");
+const cookie = require('cookie');
 const { emitter, constants: { CLOSE_ROOM } } = require('../models/Emitter');
+const { generateFoodCoordinate } = require('../models/Food');
 
 const LISTEN_EVENTS = {
     GAME_START: 'GAME_START',
@@ -19,7 +20,7 @@ const socketHandler = function (io, socket, room) {
 
     if (!room) {
         console.warn('room not found');
-        return
+        return;
     }
 
     const nameSpace = `/${room.getRoomId()}`;
@@ -31,11 +32,17 @@ const socketHandler = function (io, socket, room) {
 
     if (!snake) {
         console.warn('snake not found');
-        return
+        return;
     }
 
     const handlerGameStart = () => {
-        food.reset();
+        const foodCoordinate = generateFoodCoordinate(snakePool.getAllPositions());
+
+        if (!food.foodCoordinate) {
+            food.setFoodCoordinate(foodCoordinate);
+            food.setFoodIcon();
+        }
+
         socket.emit(EMIT_EVENTS.SET_FOOD, food.get());
         if (!snake.isGaming) {
             snakePool.addToGame(snake);
@@ -43,13 +50,18 @@ const socketHandler = function (io, socket, room) {
         }
     };
     const handleFoodEaten = () => {
-        food.reset();
+        const foodCoordinate = generateFoodCoordinate(snakePool.getAllPositions());
+
+        food.setFoodCoordinate(foodCoordinate);
+        food.setFoodIcon();
     };
     const handleSnakeMotion = (data) => {
         const rivalSnakes = snakePool.getRivals(snake);
 
         snake.position = data;
-        socket.emit(EMIT_EVENTS.GET_RIVAL_SNAKES, rivalSnakes);
+        if (rivalSnakes.length) {
+            socket.emit(EMIT_EVENTS.GET_RIVAL_SNAKES, rivalSnakes);
+        }
         socket.emit(EMIT_EVENTS.SET_FOOD, food.get());
     };
     const handleDisconnect = () => {
@@ -57,7 +69,7 @@ const socketHandler = function (io, socket, room) {
 
         if (!snakePool.checkWhoIsInTheGame()) {
             snakePool.reset();
-            emitter.emit('CLOSE_ROOM', room.getRoomId());
+            emitter.emit(CLOSE_ROOM, room.getRoomId());
         }
     };
     const handleGameOver = () => {
@@ -76,7 +88,7 @@ const socketHandler = function (io, socket, room) {
                 }
             );
 
-            emitter.emit('CLOSE_ROOM', room.getRoomId());
+            emitter.emit(CLOSE_ROOM, room.getRoomId());
         } else {
             socket.emit(EMIT_EVENTS.GAME_OVER, { statistic, isGameOver: isGameOver });
         }

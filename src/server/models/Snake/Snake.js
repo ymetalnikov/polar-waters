@@ -4,11 +4,11 @@ class Snake {
     constructor(cookies, snakeName) {
         this.cookies = cookies;
         this.snakeName = snakeName;
-        this.time = new Date().getTime() + ONE_HOUR;
+        this.expiredTime = new Date().getTime() + ONE_HOUR;
     }
 
-    updateTime() {
-        this.time = new Date().getTime() + ONE_HOUR;
+    updateExpiredTime() {
+        this.expiredTime = new Date().getTime() + ONE_HOUR;
     }
 }
 

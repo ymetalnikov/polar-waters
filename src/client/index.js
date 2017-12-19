@@ -2,11 +2,10 @@ import gameProcess from './game/';
 import GameManager from './game/GameManager';
 import gameOver from './gameOver';
 import gameProgress from './gameProgress';
-
 import { getCookie } from './utils';
-
 import socketHandler from './socketHandler';
-import dispatcher from './dispatcher';
+import { Dispatcher } from './dispatcher';
+import { client } from '../share/config';
 
 //todo разнести
 import './index.css';
@@ -19,13 +18,14 @@ const config = {
 };
 
 const snakeRoom = getCookie('snakeRoom');
+// eslint-disable-next-line no-undef
 const socket = io.connect(`/${snakeRoom}`);
 
-socketHandler(socket, dispatcher);
+socketHandler(socket, Dispatcher);
 
-const game = new GameManager(config, dispatcher);
+const game = new GameManager(config, Dispatcher);
 
-setInterval(() => (game.step()), 200);
+setInterval(() => (game.step()), client.SPEED_GAME);
 gameProcess(game);
 
 gameOver();

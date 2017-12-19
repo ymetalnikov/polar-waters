@@ -1,6 +1,6 @@
 const Room = require('./Room');
 const SnakePool = require('../SnakePool');
-const Food = require('../Food');
+const { Food } = require('../Food');
 const utils = require('../../utils');
 
 const roomBuilder = (snake, roomName) => {

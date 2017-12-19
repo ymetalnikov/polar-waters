@@ -6,7 +6,7 @@ const game = (request, response) => {
     // Если комнаты не существует
     if (!room) {
         response.redirect('/select');
-        return
+        return;
     }
 
     const { snakePool } = room;
@@ -16,8 +16,8 @@ const game = (request, response) => {
         const snake = snakePool.findSnakeByCookies(snakeName);
 
         if (snake && snake.isGaming) {
-            response.redirect(`/select`);
-            return
+            response.redirect('/select');
+            return;
         }
     }
 

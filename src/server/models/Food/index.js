@@ -1,4 +1,4 @@
-const { getFoodCoordinate, getFoodIcon } = require('./utils');
+const { generateFoodCoordinate, getFoodIcon } = require('./utils');
 
 class Food {
     constructor() {
@@ -6,8 +6,11 @@ class Food {
         this.foodIcon = null;
     }
 
-    reset() {
-        this.foodCoordinate = getFoodCoordinate();
+    setFoodCoordinate(foodCoordinate) {
+        this.foodCoordinate = foodCoordinate;
+    }
+
+    setFoodIcon() {
         this.foodIcon = getFoodIcon();
     }
 
@@ -20,4 +23,8 @@ class Food {
 
 }
 
-module.exports = Food;
+// exports.generateFoodCoordinate = generateFoodCoordinate;
+module.exports = {
+    Food,
+    generateFoodCoordinate
+};

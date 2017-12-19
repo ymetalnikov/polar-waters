@@ -40,11 +40,11 @@ class SnakePool {
     }
 
     checkWhoIsInTheGame() {
-        return this._snakePool.some((snake) => (snake.isGaming))
+        return this._snakePool.some((snake) => (snake.isGaming));
     }
 
     getAllSnakes() {
-        return this._snakePool.map((snake) => (snake.snake))
+        return this._snakePool.map((snake) => (snake.snake));
     }
 
     getGameStatistic() {
@@ -71,8 +71,14 @@ class SnakePool {
         }));
     }
 
+    getAllPositions() {
+        return this._snakePool.reduce((acc, snakeItem) => {
+            return acc.concat(snakeItem.position);
+        }, []);
+    }
+
     getLength() {
-        return this._snakePool.length
+        return this._snakePool.length;
     }
 }
 

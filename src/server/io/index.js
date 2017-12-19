@@ -15,7 +15,7 @@ const socket = (io) => {
 
     emitter.on(CLOSE_ROOM, function (roomId) {
         roomStore.deleteRoomByCookies(roomId);
-    })
+    });
 };
 
 module.exports = socket;

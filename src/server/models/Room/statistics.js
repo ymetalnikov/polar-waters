@@ -9,7 +9,7 @@ const getStatisticsForSelect = (cookiesSnakeName) => {
 
             let href = '#';
             if (snakePool.getLength() < 3) {
-                href = `/join?roomid=${room.getRoomId()}`
+                href = `/join?roomid=${room.getRoomId()}`;
             }
 
             return {

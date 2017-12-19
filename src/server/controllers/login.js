@@ -5,7 +5,7 @@ const utils = require('../utils');
 
 const login = (request, response) => {
     request
-        .checkBody("name", "Name should be is not empty")
+        .checkBody('name', 'Name should be is not empty')
         .notEmpty()
     ;
 

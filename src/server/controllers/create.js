@@ -6,7 +6,7 @@ const { emitter, constants: { OPEN_ROOM } } = require('../models/Emitter');
 
 const create = (request, response) => {
     request
-        .checkBody("roomName", "Game name should be is not empty")
+        .checkBody('roomName', 'Game name should be is not empty')
         .notEmpty()
     ;
 
@@ -23,7 +23,7 @@ const create = (request, response) => {
             { error: errors[0].msg, statistics }
         );
 
-        return
+        return;
     }
 
     const room = roomBuilder(snake, roomName);

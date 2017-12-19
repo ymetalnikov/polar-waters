@@ -6,6 +6,7 @@ module.exports = {
         gridSize: 10, // grid size
         tileCount: 60, // tile count
         snakeWaist: 5,
+        SPEED_GAME: 160,
     },
     server: {
         COOKIE_TIME: ONE_HOUR, // Время жизни куки клиента

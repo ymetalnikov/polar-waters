@@ -1,17 +1,19 @@
+import { Dispatcher } from '../dispatcher';
+
 const keyPush = (evt, game) => {
     switch (evt.keyCode) {
-        case 37:
-            game.setSnakeVelocity(-1, 0);
-            break;
-        case 38:
-            game.setSnakeVelocity(0, -1);
-            break;
-        case 39:
-            game.setSnakeVelocity(1, 0);
-            break;
-        case 40:
-            game.setSnakeVelocity(0, 1);
-            break;
+    case 37:
+        game.setSnakeVelocity(-1, 0);
+        break;
+    case 38:
+        game.setSnakeVelocity(0, -1);
+        break;
+    case 39:
+        game.setSnakeVelocity(1, 0);
+        break;
+    case 40:
+        game.setSnakeVelocity(0, 1);
+        break;
     }
 };
 const handleClick = (evn, game) => {
@@ -49,26 +51,12 @@ const handleClick = (evn, game) => {
 
 export default function gameProcess(game) {
 
-    document.addEventListener('SET_SNAKE', (e) => {
-        const payload = e.detail.payload;
+    Dispatcher.on('SET_SNAKE', (payload) => {game.setSnake(payload.position, payload.name, payload.color);});
+    Dispatcher.on('SET_FOOD', (payload) => {game.setFood(payload.foodCoordinate, payload.foodIcon);});
+    Dispatcher.on('GET_RIVAL_SNAKES', (payload) => {game.setRivals(payload);});
 
-        game.setSnake(payload.position, payload.name, payload.color);
-    });
-
-    document.addEventListener('SET_FOOD', (e) => {
-        const { foodCoordinate, foodIcon } = e.detail.payload;
-
-        game.setFood(foodCoordinate, foodIcon);
-    });
-
-    document.addEventListener('GET_RIVAL_SNAKES', (e) => {
-        game.setRivals(e.detail.payload);
-    });
-
-    document.addEventListener("keydown", (e) => (keyPush(e, game)));
-
-    document.addEventListener("click", (e) => (handleClick(e, game)));
-
+    document.addEventListener('keydown', (e) => (keyPush(e, game)));
+    document.addEventListener('click', (e) => (handleClick(e, game)));
     document.addEventListener('visibilitychange',
         () => {
             // if (document.hidden) {

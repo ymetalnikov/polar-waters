@@ -9,7 +9,7 @@ class RoomStore {
     }
 
     getRoomByCookies(cookies) {
-        return this._roomMap[cookies]
+        return this._roomMap[cookies];
     }
 
     deleteRoomByCookies(cookies) {
@@ -20,18 +20,18 @@ class RoomStore {
         this.getRoomList().forEach((room) => {
             room.snakePool.deleteSnakeByCookies(cookies);
         });
-    };
+    }
 
     /**
      * Всем кто в игре продлеваем время сессии
      */
     updateTimeAllInRooms() {
         this.getRoomList().forEach((room) => {
-                const snakes = room.snakePool.getAllSnakes();
-                snakes.forEach((snake) => {
-                    snake.updateTime();
-                });
-            }
+            const snakes = room.snakePool.getAllSnakes();
+            snakes.forEach((snake) => {
+                snake.updateExpiredTime();
+            });
+        }
         );
     }
 
@@ -51,7 +51,7 @@ class RoomStore {
         });
 
         snakePool.add(snake);
-    };
+    }
 
     /**
      * Добавляем комнату
@@ -60,7 +60,7 @@ class RoomStore {
      */
     addRoom(room) {
         this._roomMap[room.getRoomId()] = room;
-    };
+    }
 }
 
 module.exports = RoomStore;

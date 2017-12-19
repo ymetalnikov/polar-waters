@@ -1,14 +1,13 @@
+import { Dispatcher } from '../dispatcher';
+
 export default function gameOver() {
-
-    document.addEventListener('END_THE_GAME', handleGameOver);
-
-    function handleGameOver(e) {
-        const statistic = e.detail.payload.statistic;
-        const isGameOver = e.detail.payload.isGameOver;
+    Dispatcher.on('END_THE_GAME', (payload) => {
+        const statistic = payload.statistic;
+        const isGameOver = payload.isGameOver;
         const gameOver = document.getElementById('snake-game-over');
         // Если GameOver выбрасываем на /select иначе подключаем к игре
-        const gameOverLinkHref = isGameOver ? `/select` : `/game`;
-        const gameOverLinkText = isGameOver ? "start new game" : "try again";
+        const gameOverLinkHref = isGameOver ? '/select' : '/game';
+        const gameOverLinkText = isGameOver ? 'start new game' : 'try again';
 
         gameOver.innerHTML = '';
         gameOver.className = gameOver.className + ' gameOver_show';
@@ -49,5 +48,5 @@ export default function gameOver() {
 
             gameOver.appendChild(table);
         }
-    }
-};
+    });
+}
